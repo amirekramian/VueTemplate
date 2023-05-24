@@ -1,19 +1,25 @@
 <template>
+  <Header />
   <BooksShow :BookData="books" :favoriteOnly="favoriteOnly" />
   <!-- <Modal /> -->
-
+  <Footer />
 </template>
 
 <script>
 // import Modal from './components/Modal-v'
 import BooksShow from './components/Book-show'
+import Header from './components/Header-Part'
+import Footer from './components/Footer-part'
+
+
 
 
 export default {
   name: 'App', 
   components:{
     // Modal,
-    BooksShow
+    BooksShow,
+    Header,Footer
   },
   data(){
     return{
