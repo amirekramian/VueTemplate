@@ -9,7 +9,7 @@
     </div>
     <ul class="flex" v-if="!favoriteOnly">
       <li v-for="item in Books" :key="item.id" @dblclick="LikeBook(item)">
-        <div class="picbox" :class="{ fav: item.isfav }">
+        <div class="picbox" :class="{ fav: item.isfav , save:item.issaved , favsave:item.isfav && item.issaved}">
           <div>
             <img :src="item.imgsrc" class="bookPic" />
             <div>
@@ -17,10 +17,21 @@
               <br />
               <p>author: {{ item.author }}</p>
               <p>Release year: {{ item.releaseyear }}</p>
-              <button class="btn btn-success" @click="LikeBook(item)">
-                <span v-if="!item.isfav">Like this book</span>
-                <span v-if="item.isfav">You liked this book</span>
+              <div class="buttonflex">
+              <button class="btn " @click="LikeBook(item)">
+                <img class="icon" src="@/assets/Icons/Liked.svg" v-if="item.isfav" alt="">
+                <img class="icon" src="@/assets/Icons/Like.svg" v-if="!item.isfav" alt="">
               </button>
+              <button class="btn" @click="SaveBook(item)" >
+                <img class="icon" src="@/assets/Icons/Saved.svg" v-if="item.issaved" alt="">
+                <img class="icon" src="@/assets/Icons/Save.svg" v-if="!item.issaved" alt="">
+
+              </button>
+              <button class="btn" @click="ShareBook(item)" >
+                <img class="icon" src="@/assets/Icons/Comment.svg"  alt="">
+              </button>
+              </div>
+              <button class="btn">more detail</button>
               <br />
             </div>
           </div>
@@ -41,6 +52,7 @@
                 <span v-if="!item.isfav">Like this book</span>
                 <span v-if="item.isfav">You liked this book</span>
               </button>
+              
               <br />
             </div>
           </div>
@@ -76,6 +88,9 @@ export default {
       this.FavoritOnly = !this.FavoritOnly;
       console.log(this.FavoritOnly);
     },
+    SaveBook(item){
+        this.Books[item.id].issaved=!this.Books[item.id].issaved;
+    }
   },
   computed:{
     ReturnfavoriteBooks(){
@@ -102,10 +117,10 @@ export default {
 
 .picbox {
   border-radius: 15px;
-  padding: 5px;
+  padding: 10px;
   margin: 15px;
   background: #18008513;
-  width: 190px;
+  width: 250px;
   align-items: center;
   text-align: center;
 }
@@ -137,5 +152,30 @@ button.faved {
 .mainbody {
   width: 90%;
   margin: auto;
+}
+.buttonflex{
+    width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.icon{
+    width: 25px;
+}
+
+div.save{
+  border-radius: 15px;
+  background: #c8ffda;
+  width: 190px;
+  align-items: center;
+  text-align: center;
+}
+
+div.favsave{
+  border-radius: 15px;
+  background: #ffbb006b;
+  width: 190px;
+  align-items: center;
+  text-align: center;
 }
 </style>
