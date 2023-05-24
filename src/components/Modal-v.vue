@@ -1,15 +1,16 @@
 <template>
-
     <div class="backdrop">
         <div class="modal">
-            <img class="height" src="~\src\assets\Outlander.jpg" alt="">
+            <h2>{{ BookData }}</h2>
             <p>modal content</p>
         </div>
     </div>
 </template>
 
 <script>
-
+export default {
+    props:['BookData']
+}
 </script>
 
 
