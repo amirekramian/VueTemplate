@@ -8,7 +8,7 @@
   <p>this is a Default slot. default slots does not need to template tag</p> 
   </Header>
   <BooksShow :BookData="books" :favoriteOnly="favoriteOnly" :FavBooks="favoriteBooksData" :saveOnly="saveOnly" :saveBooks="savedBookData" @FavsClick="ReturnFavoriteBooks" @SavedClick="ReturnSavedBooks" />
-  <Modal :modalshow="showDetailModal" />
+  <Modal :showDetailModal="showDetailModal" @ModalToggle="ToggleModal" />
   <Footer />
 </template>
 
@@ -18,10 +18,6 @@ import BooksShow from './components/Book-show'
 import Header from './components/Header-Part'
 import Footer from './components/Footer-part'
 import ModalV from './components/Modal-v'
-
-
-
-
 
 export default {
   name: 'App', 
@@ -65,6 +61,7 @@ export default {
     },
     ToggleModal(){
     this.showDetailModal=!this.showDetailModal
+    console.log(this.showDetailModal)
     },
     
   },

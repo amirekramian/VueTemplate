@@ -35,7 +35,7 @@
                 <img class="icon" src="@/assets/Icons/Comment.svg"  alt="">
               </button>
               </div>
-              <button class="btn" @click="ShowMore(item)">more detail</button>
+              <button class="btn" @click="ShowMore()">more detail</button>
               <br />
             </div>
           </div>
@@ -121,13 +121,14 @@
 <script>
 
 export default {
-  props: ["BookData", "favoriteOnly","FavBooks","saveBooks","saveOnly"],
+  props: ["BookData", "favoriteOnly","FavBooks","saveBooks","saveOnly","showDetailModal"],
   data() {
     return {
       Books: this.BookData,
       FavoritOnly: this.favoriteOnly,
       SaveOnly: this.saveOnly,
-      SelectedData:""
+      SelectedData:"",
+      ModalShow:this.showDetailModal
     };
   },
   methods: {
@@ -149,6 +150,9 @@ export default {
             console.log(this.saveBooks)
             console.log(this.saveOnly)
     },
+    ShowMore(){
+    this.$emit('ModalToggle')
+    }
   },
   computed:{
 
