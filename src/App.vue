@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <BooksShow :BookData="books" :favoriteOnly="favoriteOnly" />
+  <BooksShow :BookData="books" :favoriteOnly="favoriteOnly" :FavBooks="favoriteBooksData" :saveOnly="saveOnly" :saveBooks="savedBookData" @FavsClick="ReturnFavoriteBooks" @SavedClick="ReturnSavedBooks" />
   <!-- <Modal /> -->
   <Footer />
 </template>
@@ -19,10 +19,13 @@ export default {
   components:{
     // Modal,
     BooksShow,
-    Header,Footer
+    Header,
+    Footer
   },
   data(){
     return{
+      favoriteBooksData:"",
+      savedBookData:"",
       visibility: true,
              books :[
                  {id:0,title:'Pride and Prejudice', releaseyear: 1813 , author:'jane austin' , imgsrc:require('@/assets/Images/BeachRead.jpg'), isfav : false,issaved:false},
@@ -36,9 +39,24 @@ export default {
                  {id:8,title:'Love on the brain', releaseyear: 2019 , author:'Beth oleary',imgsrc: require('@/assets/Images/TheNotebook.jpg'), isfav : false,issaved:false},
                  {id:9,title:'The Fault in Our Stars', releaseyear: 2012 , author:'john green',imgsrc: require('@/assets/Images/TheFaultinOurStars.jpg'), isfav : false,issaved:false}
                     ],
-             favoriteOnly: false
+             favoriteOnly: false,
+             saveOnly: false
+             //favoriteBooksData: ReturnFavoriteBooks()
     }
   },
+  methods:{
+    ReturnFavoriteBooks(){
+      this.favoriteBooksData=this.books.filter((book) => book.isfav)
+    },
+    ReturnSavedBooks(){
+    this.savedBookData = this.books.filter((book) => book.issaved)
+    console.log("appvue",this.savedBookData)
+    }
+    
+  },
+  computed:{
+
+  }
   }
   
 </script>
@@ -50,6 +68,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

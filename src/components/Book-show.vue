@@ -3,11 +3,15 @@
     <br />
     <div>
       <button class="btn btn-default" @click="FavoriteOnlyToggle()">
-        <span v-if="!favoriteOnly">Show only favorite books</span>
-        <span v-if="favoriteOnly">Show all books</span>
+        <span v-if="!FavoritOnly">Show only favorite books</span>
+        <span v-if="FavoritOnly">Show all books</span>
+      </button>
+      <button class="btn btn-default" @click="SavedOnlyToggle()">
+        <span v-if="!saveOnly">Show only Saved books</span>
+        <span v-if="saveOnly">Show all books</span>
       </button>
     </div>
-    <ul class="flex" v-if="!favoriteOnly">
+    <ul class="flex" v-if="!this.FavoritOnly && !this.saveOnly">
       <li v-for="item in Books" :key="item.id" @dblclick="LikeBook(item)">
         <div class="picbox" :class="{ fav: item.isfav , save:item.issaved , favsave:item.isfav && item.issaved}">
           <div>
@@ -38,9 +42,10 @@
         </div>
       </li>
     </ul>
-    <ul class="flex" v-if="favoriteOnly">
-      <li v-for="item in Books" :key="item.id" @dblclick="LikeBook(item)">
-        <div class="picbox" :class="{ fav: item.isfav }">
+    <!-- LikedBooks -->
+    <ul class="flex" v-if="this.FavoritOnly">
+      <li v-for="item in FavBooks" :key="item.id" @dblclick="LikeBook(item)">
+        <div class="picbox" :class="{ fav: item.isfav , save:item.issaved , favsave:item.isfav && item.issaved}">
           <div>
             <img :src="item.imgsrc" class="bookPic" />
             <div>
@@ -48,11 +53,53 @@
               <br />
               <p>author: {{ item.author }}</p>
               <p>Release year: {{ item.releaseyear }}</p>
-              <button class="btn btn-success" @click="LikeBook(item)">
-                <span v-if="!item.isfav">Like this book</span>
-                <span v-if="item.isfav">You liked this book</span>
+              <div class="buttonflex">
+              <button class="btn " @click="LikeBook(item)">
+                <img class="icon" src="@/assets/Icons/Liked.svg" v-if="item.isfav" alt="">
+                <img class="icon" src="@/assets/Icons/Like.svg" v-if="!item.isfav" alt="">
               </button>
-              
+              <button class="btn" @click="SaveBook(item)" >
+                <img class="icon" src="@/assets/Icons/Saved.svg" v-if="item.issaved" alt="">
+                <img class="icon" src="@/assets/Icons/Save.svg" v-if="!item.issaved" alt="">
+
+              </button>
+              <button class="btn" @click="ShareBook(item)" >
+                <img class="icon" src="@/assets/Icons/Comment.svg"  alt="">
+              </button>
+              </div>
+              <button class="btn">more detail </button>
+              <br />
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- saved books -->
+       <ul class="flex" v-if="SaveOnly">
+      <li v-for="item in saveBooks" :key="item.id" @dblclick="LikeBook(item)">
+        <div class="picbox" :class="{ fav: item.isfav , save:item.issaved , favsave:item.isfav && item.issaved}">
+          <div>
+            <img :src="item.imgsrc" class="bookPic" />
+            <div>
+              <b>{{ item.title }}</b>
+              <br />
+              <p>author: {{ item.author }}</p>
+              <p>Release year: {{ item.releaseyear }}</p>
+              <div class="buttonflex">
+              <button class="btn " @click="LikeBook(item)">
+                <img class="icon" src="@/assets/Icons/Liked.svg" v-if="item.isfav" alt="">
+                <img class="icon" src="@/assets/Icons/Like.svg" v-if="!item.isfav" alt="">
+              </button>
+              <button class="btn" @click="SaveBook(item)" >
+                <img class="icon" src="@/assets/Icons/Saved.svg" v-if="item.issaved" alt="">
+                <img class="icon" src="@/assets/Icons/Save.svg" v-if="!item.issaved" alt="">
+
+              </button>
+              <button class="btn" @click="ShareBook(item)" >
+                <img class="icon" src="@/assets/Icons/Comment.svg"  alt="">
+              </button>
+              </div>
+              <button class="btn">more detail</button>
               <br />
             </div>
           </div>
@@ -73,11 +120,12 @@
 
 <script>
 export default {
-  props: ["BookData", "favoriteOnly"],
+  props: ["BookData", "favoriteOnly","FavBooks","saveBooks","saveOnly"],
   data() {
     return {
       Books: this.BookData,
       FavoritOnly: this.favoriteOnly,
+      SaveOnly: this.saveOnly,
     };
   },
   methods: {
@@ -85,17 +133,29 @@ export default {
       this.Books[item.id].isfav = !this.Books[item.id].isfav;
     },
     FavoriteOnlyToggle() {
-      this.FavoritOnly = !this.FavoritOnly;
-      console.log(this.FavoritOnly);
+      this.FavoritOnly = !this.FavoritOnly
+      this.$emit('FavsClick')
+      // console.log(this.favorites)
+
     },
     SaveBook(item){
         this.Books[item.id].issaved=!this.Books[item.id].issaved;
+    },
+    SavedOnlyToggle(){
+            this.SaveOnly = !this.SaveOnly
+            this.$emit('SavedClick')
+            console.log(this.saveBooks)
+            console.log(this.saveOnly)
+
+
     }
   },
   computed:{
-    ReturnfavoriteBooks(){
-            return this.Books.filter((book)=> book.isfav)
-        }
+
+  },
+  mounted(){
+
+    // console.log(this.FavBooks)
   }
 };
 </script>
