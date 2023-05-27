@@ -35,7 +35,7 @@
                 <img class="icon" src="@/assets/Icons/Comment.svg"  alt="">
               </button>
               </div>
-              <button class="btn">more detail</button>
+              <button class="btn" @click="ShowMore(item)">more detail</button>
               <br />
             </div>
           </div>
@@ -119,6 +119,7 @@
 </template>
 
 <script>
+
 export default {
   props: ["BookData", "favoriteOnly","FavBooks","saveBooks","saveOnly"],
   data() {
@@ -126,6 +127,7 @@ export default {
       Books: this.BookData,
       FavoritOnly: this.favoriteOnly,
       SaveOnly: this.saveOnly,
+      SelectedData:""
     };
   },
   methods: {
@@ -146,9 +148,7 @@ export default {
             this.$emit('SavedClick')
             console.log(this.saveBooks)
             console.log(this.saveOnly)
-
-
-    }
+    },
   },
   computed:{
 

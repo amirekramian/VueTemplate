@@ -1,15 +1,14 @@
 <template>
-    <div class="backdrop">
+    <div v-if="modalshow" class="backdrop">
         <div class="modal">
-            <h2>{{ BookData }}</h2>
-            <p>modal content</p>
+            <p>modal content</p>            
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props:['BookData']
+    props:['BookData','modalshow','SelectedBookData']
 }
 </script>
 
