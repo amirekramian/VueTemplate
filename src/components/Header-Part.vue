@@ -1,6 +1,9 @@
 <template>
     <div class="test">
         This is header
+        <slot name="HeaderMore">
+
+        </slot>
     </div>
 </template>
 

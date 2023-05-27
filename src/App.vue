@@ -1,5 +1,12 @@
 <template>
-  <Header />
+  <Header>
+  <template v-slot:HeaderMore>
+<h1>Hellooooo</h1>
+<br>
+<h2>Welcome to your book shop</h2>
+  </template>
+  </Header>
+
   <BooksShow :BookData="books" :favoriteOnly="favoriteOnly" :FavBooks="favoriteBooksData" :saveOnly="saveOnly" :saveBooks="savedBookData" @FavsClick="ReturnFavoriteBooks" @SavedClick="ReturnSavedBooks" />
   <!-- <Modal /> -->
   <Footer />
