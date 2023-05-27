@@ -5,6 +5,7 @@
 <br>
 <h2>Welcome to your book shop</h2>
   </template>
+  <p>this is a Default slot. default slots does not need to template tag</p> 
   </Header>
 
   <BooksShow :BookData="books" :favoriteOnly="favoriteOnly" :FavBooks="favoriteBooksData" :saveOnly="saveOnly" :saveBooks="savedBookData" @FavsClick="ReturnFavoriteBooks" @SavedClick="ReturnSavedBooks" />

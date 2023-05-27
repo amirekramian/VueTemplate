@@ -2,7 +2,7 @@
     <div class="test">
         This is header
         <slot name="HeaderMore">
-
+        <slot>Default Content</slot>
         </slot>
     </div>
 </template>
